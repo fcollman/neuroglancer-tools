@@ -94,7 +94,7 @@ def set_layer_props(s,l, color=(0.0,1.0,0.0),
     l._json_data['shader']=get_shader(minval,maxval,color)
 
 
-def plot_celldf(s,cell_df,layer_name='cell_pts',
+def plot_df_points(s,cell_df,layer_name='cell_pts',
                 xyzcol=('x_pos','y_pos','z_pos'),
                 desc_col='ID'):
     '''function for adding a dataframe of cell positions to the neuroglancer viewer
