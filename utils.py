@@ -85,6 +85,7 @@ def set_layer_props(s,l, color=(0.0,1.0,0.0),
     l._json_data['color']=color
     l._json_data['blend']=blend
     l._json_data['opacity']=opacity
+    l._json_data['min']=minval
     l._json_data['max'] = maxval
     l._json_data['transform']=matrix
     l._json_data['shader']=get_shader(minval,maxval,color)
