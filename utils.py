@@ -146,8 +146,7 @@ def fit(A, B):
     Returns
     -------
     numpy.array
-        a 12x1 matrix with the best fit parameters
-        ordered M00,M01,M02,M10,M11,M12,M20,M21,M22,B0,B1,B2
+        a 4x4 matrix with the best fit affine matrix
     """
     if not all([A.shape[0] == B.shape[0], A.shape[1] == B.shape[1] == 3]):
         raise Exception(
