@@ -1,9 +1,5 @@
 import numpy as np
-import tifffile
-import os
 from collections import OrderedDict
-import json
-import sys
 import neuroglancer
 import pandas as pd
 
@@ -94,7 +90,7 @@ def set_layer_props(s,l, color=(0.0,1.0,0.0),
     l._json_data['shader']=get_shader(minval,maxval,color)
 
 
-def plot_df_points(s,cell_df,layer_name='cell_pts',
+def plot_df_points(s,df,layer_name='cell_pts',
                 xyzcol=('x_pos','y_pos','z_pos'),
                 desc_col='ID'):
     '''function for adding a dataframe of cell positions to the neuroglancer viewer
@@ -103,7 +99,7 @@ def plot_df_points(s,cell_df,layer_name='cell_pts',
     ----------
     s: neuroglancer.ViewerState
         neuroglancer state from viewer.txn()
-    cell_df: pd.DataFrame
+    df: pd.DataFrame
         pandas DataFrame that contains columns (ID,x_pos,y_pos,z_pos)
         where ID Is the name of the cell, and (x,y,z)_pos are the position of the cells
         in the global voxel coordinate system of the viewer (usually microns).
@@ -123,7 +119,7 @@ def plot_df_points(s,cell_df,layer_name='cell_pts',
                     layer=neuroglancer.PointAnnotationLayer(),
                     )
     cds = []
-    for k,row in cell_df.iterrows():
+    for k,row in df.iterrows():
         cd = OrderedDict({'point':[row[xyzcol[0]],row[xyzcol[1]],row[xyzcol[2]]],
                                    'type':'point',
                                    'id':row.get(desc_col,''),
@@ -154,7 +150,7 @@ def fit(A, B):
         ordered M00,M01,M02,M10,M11,M12,M20,M21,M22,B0,B1,B2
     """
     if not all([A.shape[0] == B.shape[0], A.shape[1] == B.shape[1] == 3]):
-        raise EstimationError(
+        raise Exception(
             'shape mismatch! A shape: {}, B shape {}'.format(
                 A.shape, B.shape))
 
